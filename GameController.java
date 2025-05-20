@@ -76,7 +76,9 @@
                 userCardsLabel.setText("No cards");
             } else {
                 // Join cards with comma or newlines
-                String cardsDisplay = String.join(", ", userCards);
+                userCardsLabel.setStyle("-fx-font-weight: bold;");
+
+                String cardsDisplay = "Your Cards: " + String.join(", ", userCards);
                 userCardsLabel.setText(cardsDisplay);
             }
         }
