@@ -7,7 +7,7 @@ public class Player {
     private String name;
     private int row, col;
     private Circle token;
-    private ArrayList<String> cards;
+    private ArrayList<String> cards = new ArrayList<>();
 
 
     public Player(String name, Color color, int row, int col) {
@@ -16,7 +16,6 @@ public class Player {
         this.col = col;
         this.token = new Circle(Board.CELL_SIZE / 2.5);
         this.token.setFill(color);
-        this.cards = new ArrayList<>();
     }
 
     public ArrayList<String> getCards() {

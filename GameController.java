@@ -14,10 +14,10 @@
         private Label infoLabel;
         private TextField guessField;
 
-        private List<Player> players;
+        private List<Player> players = new ArrayList<>();
         private int currentPlayerIndex = 0;
         private int movesLeft = 0;
-        private ArrayList<String> userCards;
+        private ArrayList<String> userCards; //NOT USED?
         private Label userCardsLabel = new Label();
         private Pane rootPane;
 
@@ -66,7 +66,8 @@
 
 
         public void updateUserCardsDisplay() {
-            if (players == null || players.isEmpty()) return;
+            if (players == null || players.isEmpty())
+                return;
 
             Player user = players.get(0);
             ArrayList<String> userCards = user.getCards(); // Assuming this returns ArrayList<String>
@@ -87,7 +88,6 @@
             Player comp2 = new Player("Comp 2", javafx.scene.paint.Color.DARKRED, 10, 10);
             Player comp3 = new Player("Comp 3", javafx.scene.paint.Color.GREEN, 10, 2);
 
-            this.players = new ArrayList<>();
             players.add(user);
             players.add(comp1);
             players.add(comp2);
@@ -279,6 +279,10 @@
             new Thread(() -> {
                 try {
                     int moves = movesLeft;
+
+                    boolean[][] visited = new boolean[Board.BOARD_SIZE][Board.BOARD_SIZE];
+                    visited[comp.getRow()][comp.getCol()] = true; //start square visited
+
                     while (moves > 0) {
                         Thread.sleep(500);
                         int direction = (int)(Math.random() * 4);
@@ -292,9 +296,15 @@
                             case 3 -> newCol++;
                         }
 
+                        //check if out of bounds
                         if (newRow < 0 || newRow >= Board.BOARD_SIZE || newCol < 0 || newCol >= Board.BOARD_SIZE)
                             continue;
 
+                        if (visited[newRow][newCol]) { //check if already been here
+                            continue;
+                        }
+
+                        visited[newRow][newCol] = true;
                         comp.setPosition(newRow, newCol);
 
                         final int row = newRow;
