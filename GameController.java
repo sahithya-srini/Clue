@@ -177,9 +177,6 @@
                 }
             }
 
-            if (!disproved) {
-                infoLabel.setText("No one could disprove your guess.");
-            }
 
             // Check for correct guess
             if (guess.equalsIgnoreCase(killer) && currentRoom.getName().equalsIgnoreCase(roomKilled)) {
