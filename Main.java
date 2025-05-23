@@ -28,7 +28,7 @@ public class Main extends Application {
 
         Scene scene = new Scene(rootPane);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Clue Game Modular");
+        primaryStage.setTitle("Clue Game");
         primaryStage.show();
 
         gameController.startGame(scene);
