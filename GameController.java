@@ -6,6 +6,7 @@
 
     import java.util.ArrayList;
     import java.util.Arrays;
+    import java.util.Collections; //for shuffle method
     import java.util.List;
 
     public class GameController {
@@ -118,12 +119,7 @@
             }
 
             // Shuffle deck
-            for (int i = deck.size() - 1; i > 0; i--) {
-                int j = (int)(Math.random() * (i + 1));
-                String temp = deck.get(i);
-                deck.set(i, deck.get(j));
-                deck.set(j, temp);
-            }
+            Collections.shuffle(deck);
 
             // Deal cards: 2 cards each to 4 players
             int cardIndex = 0;
