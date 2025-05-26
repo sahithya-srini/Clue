@@ -12,9 +12,10 @@
     import javafx.geometry.Pos;
 
     import java.util.ArrayList;
-    import java.util.Arrays;
     import java.util.Collections; //for shuffle method
     import java.util.List;
+    import java.util.Map;
+    import java.util.HashMap;
 
     public class GameController {
 
@@ -25,17 +26,16 @@
         private List<Player> players = new ArrayList<>();
         private int currentPlayerIndex = 0;
         private int movesLeft = 0;
-        private ArrayList<String> userCards; //NOT USED??
         private Pane rootPane;
-
 
         private final ArrayList<String> roomList = new ArrayList<>();
         private final ArrayList<String> suspectList = new ArrayList<>();
         private final String roomKilled;
         private final String killer;
 
-
         private Scene currentScene;
+
+        private Map<Player, List<Label>> playerCardLabels = new HashMap<>();
 
         public GameController(Board board, Label infoLabel, TextField guessField, Pane rootPane) {
             this.board = board;
@@ -77,7 +77,7 @@
 
 
             Label heading = new Label("Cards");
-            heading.setStyle("-fx-font-weight: bold;"); // -fx-font-size: 14px; ??
+            heading.setStyle("-fx-font-weight: bold; -fx-font-size: 20px;");
             playerInfo.getChildren().add(heading);
 
             for(Player p: players) {
@@ -85,34 +85,40 @@
                 playerBox.setPadding(new Insets(5));
                 playerBox.setStyle("-fx-border-color: salmon; -fx-border-width: 3;");
 
-                Label playerName = new Label(p.getName().toUpperCase()); //toUpperCase()??
+                Label playerName = new Label(p.getName().toUpperCase());
                 playerName.setStyle("-fx-font-weight: bold;");
                 playerBox.getChildren().add(playerName);
 
-//                Label hand = new Label("Cards:");
-//                playerBox.getChildren().addAll(playerName, hand);
                 HBox cardDisplay = new HBox(10);
                 cardDisplay.setAlignment(Pos.CENTER_LEFT);
 
-                for (String card: p.getCards()) { //each player cards
+                List<Label> slots = new ArrayList<Label>();
+                for (int i = 0; i < 2; i++) { //each player cards
                     StackPane cardPane = new StackPane();
                     cardPane.setPrefSize(120, 100);
                     cardPane.setStyle("-fx-border-color: black; -fx-background-color: #D3D3D3;");
 
-                    Label cardName = new Label(card);
+                    Label cardName = new Label();
                     cardName.setWrapText(true);
+                    cardName.setTextFill(javafx.scene.paint.Color.TRANSPARENT);
+//                    cardName.setMaxWidth(cardPane.getPrefWidth() - 10);
                     cardPane.getChildren().add(cardName);
 
                     cardDisplay.getChildren().add(cardPane);
+                    slots.add(cardName);
                 }
+
+                playerCardLabels.put(p, slots);
 
                 playerBox.getChildren().add(cardDisplay);
                 playerInfo.getChildren().add(playerBox);
+
+                if (p == players.getFirst()) { //reveals the user's cards at the start of the game
+                    for (String userCard: p.getCards()) {
+                        revealCard(p, userCard);
+                    }
+                }
             }
-//            rootPane.getChildren().add(userCardsLabel);
-//            userCardsLabel.setLayoutX(10);
-//            userCardsLabel.setLayoutY(10);
-//            userCardsLabel.setPrefWidth(300);
         }
 
         private void setupPlayers() {
@@ -159,10 +165,6 @@
                     cardIndex++;
                 }
             }
-
-//            updateUserCardsDisplay();
-
-
         }
 
         private void handleUserGuess() {
@@ -185,24 +187,32 @@
                 return;
             }
 
-            infoLabel.setText("You guessed: " + guess + " in " + currentRoom.getName());
+            infoLabel.setText("You guessed: " + guess + " in " + currentRoom.getName()); //not shown??
 
             // Attempt to find disproving card from other players
             boolean disproved = false;
             for (int i = 1; i < players.size(); i++) {
                 Player nextPlayer = players.get((currentPlayerIndex + i) % players.size());
-                List<String> matchingCards = new ArrayList<>();
+//                List<String> matchingCards = new ArrayList<>();
                 for (String card : nextPlayer.getCards()) {
                     if (card.equalsIgnoreCase(guess) || card.equalsIgnoreCase(currentRoom.getName())) {
-                        matchingCards.add(card);
+//                        matchingCards.add(card);
+                        infoLabel.setText("Player " + nextPlayer.getName() + " shows you: " + card);
+
+                        revealCard(nextPlayer, card);
+                        disproved = true;
+                        break;
                     }
                 }
-                if (!matchingCards.isEmpty()) {
-                    String revealedCard = matchingCards.get(0);
-                    infoLabel.setText("Player " + nextPlayer.getName() + " shows you: " + revealedCard);
-                    disproved = true;
+                if (disproved) {
                     break;
                 }
+//                if (!matchingCards.isEmpty()) {
+//                    String revealedCard = matchingCards.get(0);
+//                    infoLabel.setText("Player " + nextPlayer.getName() + " shows you: " + revealedCard);
+//                    disproved = true;
+//                    break;
+//                }
             }
 
 
@@ -220,6 +230,17 @@
             guessField.clear();
             guessField.setDisable(true);
             endTurn();
+        }
+
+        private void revealCard(Player revealer, String cardName) {
+            List<Label> slots = playerCardLabels.get(revealer);
+            for (Label lbl : slots) {
+                if (lbl.getText().isEmpty()) {
+                    lbl.setText(cardName);
+                    lbl.setTextFill(javafx.scene.paint.Color.BLACK);
+                    break;
+                }
+            }
         }
 
         private void setupGuessField() {
