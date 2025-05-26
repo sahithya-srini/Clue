@@ -43,17 +43,17 @@
             this.guessField = guessField;
             this.rootPane = rootPane;
 
-            roomList.add("Lavender Room");
-            roomList.add("Blue Room");
-            roomList.add("Blush Room");
-            roomList.add("White Blue Room");
-            roomList.add("Green Room");
-            roomList.add("Coral Room");
+        roomList.add("Tangled");
+        roomList.add("Mission Impossible");
+        roomList.add("Mean Girls");
+        roomList.add("Avengers");
+        roomList.add("Cars");
 
-            suspectList.add("Suspect 1");
-            suspectList.add("Suspect 2");
-            suspectList.add("Suspect 3");
-            suspectList.add("Suspect 4");
+        suspectList.add("Minion");
+        suspectList.add("Hulk");
+        suspectList.add("Car");
+        suspectList.add("Rapunzel");
+
 
             this.roomKilled = roomList.get((int)(Math.random() * roomList.size()));
             this.killer = suspectList.get((int)(Math.random() * suspectList.size()));
@@ -122,10 +122,10 @@
         }
 
         private void setupPlayers() {
-            Player user = new Player("User", javafx.scene.paint.Color.BLACK, 2, 2);
-            Player comp1 = new Player("Comp 1", javafx.scene.paint.Color.BLUE, 2, 10);
-            Player comp2 = new Player("Comp 2", javafx.scene.paint.Color.DARKRED, 10, 10);
-            Player comp3 = new Player("Comp 3", javafx.scene.paint.Color.GREEN, 10, 2);
+            Player user = new Player("Minion", Color.YELLOW, 2, 2);
+            Player comp1 = new Player("Hulk", Color.GREEN, 2, 10);
+            Player comp2 = new Player("Car", javafx.scene.paint.Color.DARKRED, 10, 10);
+            Player comp3 = new Player("Rapunzel", Color.PURPLE, 10, 2);
 
             players.add(user);
             players.add(comp1);
@@ -258,7 +258,7 @@
             movesLeft = rollDice();
             infoLabel.setText(current.getName() + "'s turn. Moves rolled: " + movesLeft);
 
-            if (current.getName().equals("User")) {
+            if (current.getName().equals("Minion")) {
                 enableUserMovement(current);
             } else {
                 guessField.setDisable(true);
