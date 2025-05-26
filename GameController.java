@@ -50,6 +50,7 @@
         roomList.add("Mean Girls");
         roomList.add("Avengers");
         roomList.add("Cars");
+        roomList.add("Despicable Me");
 
         suspectList.add("Minion");
         suspectList.add("Hulk");
