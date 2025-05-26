@@ -12,7 +12,7 @@
     import javafx.geometry.Pos;
 
     import java.util.ArrayList;
-    import java.util.Collections; //for shuffle method
+    import java.util.Collections;
     import java.util.List;
     import java.util.Map;
     import java.util.HashMap;
@@ -54,7 +54,7 @@
 
         suspectList.add("Minion");
         suspectList.add("Hulk");
-        suspectList.add("Car");
+        suspectList.add("Lightning McQueen");
         suspectList.add("Rapunzel");
 
 
@@ -69,14 +69,12 @@
 
         public void setupUI() {
             VBox playerInfo = new VBox(10);
-            playerInfo.setPadding(new Insets(10)); // gives the inside edges a 10 px margin
+            playerInfo.setPadding(new Insets(10)); 
             playerInfo.setPrefWidth(200);
             rootPane.getChildren().add(playerInfo);
 
-            //positioning
             playerInfo.setLayoutX(600);
             playerInfo.setLayoutY(10);
-//            playerInfo.setAlignment(Pos.TOP_LEFT); //or this?
 
 
             Label heading = new Label("Cards");
@@ -104,7 +102,6 @@
                     Label cardName = new Label();
                     cardName.setWrapText(true);
                     cardName.setTextFill(javafx.scene.paint.Color.TRANSPARENT);
-//                    cardName.setMaxWidth(cardPane.getPrefWidth() - 10);
                     cardPane.getChildren().add(cardName);
 
                     cardDisplay.getChildren().add(cardPane);
@@ -116,7 +113,7 @@
                 playerBox.getChildren().add(cardDisplay);
                 playerInfo.getChildren().add(playerBox);
 
-                if (p == players.getFirst()) { //reveals the user's cards at the start of the game
+                if (p == players.getFirst()) { 
                     for (String userCard: p.getCards()) {
                         revealCard(p, userCard);
                     }
@@ -127,7 +124,7 @@
         private void setupPlayers() {
             Player user = new Player("Minion", Color.YELLOW, 2, 2);
             Player comp1 = new Player("Hulk", Color.GREEN, 2, 10);
-            Player comp2 = new Player("Car", javafx.scene.paint.Color.DARKRED, 10, 10);
+            Player comp2 = new Player("Lightning McQueen", javafx.scene.paint.Color.DARKRED, 10, 10);
             Player comp3 = new Player("Rapunzel", Color.PURPLE, 10, 2);
 
             players.add(user);
@@ -190,16 +187,13 @@
                 return;
             }
 
-            infoLabel.setText("You guessed: " + guess + " in " + currentRoom.getName()); //not shown??
+            infoLabel.setText("You guessed: " + guess + " in " + currentRoom.getName());
 
-            // Attempt to find disproving card from other players
             boolean disproved = false;
             for (int i = 1; i < players.size(); i++) {
                 Player nextPlayer = players.get((currentPlayerIndex + i) % players.size());
-//                List<String> matchingCards = new ArrayList<>();
                 for (String card : nextPlayer.getCards()) {
                     if (card.equalsIgnoreCase(guess) || card.equalsIgnoreCase(currentRoom.getName())) {
-//                        matchingCards.add(card);
                         infoLabel.setText("Player " + nextPlayer.getName() + " shows you: " + card);
 
                         revealCard(nextPlayer, card);
@@ -210,21 +204,15 @@
                 if (disproved) {
                     break;
                 }
-//                if (!matchingCards.isEmpty()) {
-//                    String revealedCard = matchingCards.get(0);
-//                    infoLabel.setText("Player " + nextPlayer.getName() + " shows you: " + revealedCard);
-//                    disproved = true;
-//                    break;
-//                }
+
             }
 
 
-            // Check for correct guess
+          
             if (guess.equalsIgnoreCase(killer) && currentRoom.getName().equalsIgnoreCase(roomKilled)) {
                 infoLabel.setText("Correct! You solved the murder!");
                 guessField.setDisable(true);
                 currentScene.setOnKeyPressed(null);
-                // You can add game over logic here
                 return;
             } else {
                 infoLabel.setText(infoLabel.getText() + "\nIncorrect guess. Turn ends.");
@@ -347,7 +335,6 @@
                             case 3 -> newCol++;
                         }
 
-                        //check if out of bounds
                         if (newRow < 0 || newRow >= Board.BOARD_SIZE || newCol < 0 || newCol >= Board.BOARD_SIZE)
                             continue;
 
@@ -391,7 +378,6 @@
         private void endTurn() {
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 
-            // Start next turn after a slight delay so UI updates properly
             javafx.application.Platform.runLater(() -> startTurn());
         }
 
