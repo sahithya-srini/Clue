@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -19,9 +20,14 @@ public class Main extends Application {
 
         Board board = new Board();
 
-        VBox rootPane = new VBox(10);
-        rootPane.getChildren().addAll(infoLabel, board.getGridPane(), guessField);
-        rootPane.setPrefSize(Board.BOARD_SIZE * Board.CELL_SIZE + 100, Board.BOARD_SIZE * Board.CELL_SIZE + 150);
+        HBox rootPane = new HBox(20); // or 10??
+//        rootPane.setPadding(new Insets(10)); // needed??
+
+        VBox gameParts = new VBox(10);
+        gameParts.getChildren().addAll(infoLabel, board.getGridPane(), guessField);
+        gameParts.setPrefSize(Board.BOARD_SIZE * Board.CELL_SIZE + 100, Board.BOARD_SIZE * Board.CELL_SIZE + 150);
+        //change sizing??
+        rootPane.getChildren().add(gameParts);
 
         gameController = new GameController(board, infoLabel, guessField, rootPane);
         gameController.setupUI();

@@ -2,7 +2,14 @@
     import javafx.scene.control.Label;
     import javafx.scene.control.TextField;
     import javafx.scene.input.KeyCode;
+    import javafx.scene.layout.HBox;
     import javafx.scene.layout.Pane;
+
+    //for displaying cards
+    import javafx.scene.layout.StackPane;
+    import javafx.scene.layout.VBox;
+    import javafx.geometry.Insets;
+    import javafx.geometry.Pos;
 
     import java.util.ArrayList;
     import java.util.Arrays;
@@ -18,8 +25,7 @@
         private List<Player> players = new ArrayList<>();
         private int currentPlayerIndex = 0;
         private int movesLeft = 0;
-        private ArrayList<String> userCards; //NOT USED?
-        private Label userCardsLabel = new Label();
+        private ArrayList<String> userCards; //NOT USED??
         private Pane rootPane;
 
 
@@ -59,31 +65,55 @@
         }
 
         public void setupUI() {
-            rootPane.getChildren().add(userCardsLabel);
-            userCardsLabel.setLayoutX(10);
-            userCardsLabel.setLayoutY(10);
-            userCardsLabel.setPrefWidth(300);
-        }
+            VBox playerInfo = new VBox(10);
+            playerInfo.setPadding(new Insets(10)); // gives the inside edges a 10 px margin
+            playerInfo.setPrefWidth(200);
+            rootPane.getChildren().add(playerInfo);
+
+            //positioning
+            playerInfo.setLayoutX(600);
+            playerInfo.setLayoutY(10);
+//            playerInfo.setAlignment(Pos.TOP_LEFT); //or this?
 
 
-        public void updateUserCardsDisplay() {
-            if (players == null || players.isEmpty())
-                return;
+            Label heading = new Label("Cards");
+            heading.setStyle("-fx-font-weight: bold;"); // -fx-font-size: 14px; ??
+            playerInfo.getChildren().add(heading);
 
-            Player user = players.get(0);
-            ArrayList<String> userCards = user.getCards(); // Assuming this returns ArrayList<String>
+            for(Player p: players) {
+                VBox playerBox = new VBox(5);
+                playerBox.setPadding(new Insets(5));
+                playerBox.setStyle("-fx-border-color: salmon; -fx-border-width: 3;");
 
-            if (userCards == null || userCards.isEmpty()) {
-                userCardsLabel.setText("No cards");
-            } else {
-                // Join cards with comma or newlines
-                userCardsLabel.setStyle("-fx-font-weight: bold;");
+                Label playerName = new Label(p.getName().toUpperCase()); //toUpperCase()??
+                playerName.setStyle("-fx-font-weight: bold;");
+                playerBox.getChildren().add(playerName);
 
-                String cardsDisplay = "Your Cards: " + String.join(", ", userCards);
-                userCardsLabel.setText(cardsDisplay);
+//                Label hand = new Label("Cards:");
+//                playerBox.getChildren().addAll(playerName, hand);
+                HBox cardDisplay = new HBox(10);
+                cardDisplay.setAlignment(Pos.CENTER_LEFT);
+
+                for (String card: p.getCards()) { //each player cards
+                    StackPane cardPane = new StackPane();
+                    cardPane.setPrefSize(120, 100);
+                    cardPane.setStyle("-fx-border-color: black; -fx-background-color: #D3D3D3;");
+
+                    Label cardName = new Label(card);
+                    cardName.setWrapText(true);
+                    cardPane.getChildren().add(cardName);
+
+                    cardDisplay.getChildren().add(cardPane);
+                }
+
+                playerBox.getChildren().add(cardDisplay);
+                playerInfo.getChildren().add(playerBox);
             }
+//            rootPane.getChildren().add(userCardsLabel);
+//            userCardsLabel.setLayoutX(10);
+//            userCardsLabel.setLayoutY(10);
+//            userCardsLabel.setPrefWidth(300);
         }
-
 
         private void setupPlayers() {
             Player user = new Player("User", javafx.scene.paint.Color.BLACK, 2, 2);
@@ -130,7 +160,9 @@
                 }
             }
 
-            updateUserCardsDisplay();
+//            updateUserCardsDisplay();
+
+
         }
 
         private void handleUserGuess() {
