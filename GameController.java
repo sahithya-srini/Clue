@@ -102,6 +102,7 @@
                     Label cardName = new Label();
                     cardName.setWrapText(true);
                     cardName.setTextFill(javafx.scene.paint.Color.TRANSPARENT);
+                    cardName.setPadding(new Insets(0, 10, 0, 10));
                     cardPane.getChildren().add(cardName);
 
                     cardDisplay.getChildren().add(cardPane);
