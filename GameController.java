@@ -45,17 +45,17 @@
             this.guessField = guessField;
             this.rootPane = rootPane;
 
-        roomList.add("Tangled");
-        roomList.add("Mission Impossible");
-        roomList.add("Mean Girls");
-        roomList.add("Avengers");
-        roomList.add("Cars");
-        roomList.add("Despicable Me");
+            roomList.add("Tangled");
+            roomList.add("Mission Impossible");
+            roomList.add("Mean Girls");
+            roomList.add("Avengers");
+            roomList.add("Cars");
+            roomList.add("Despicable Me");
 
-        suspectList.add("Minion");
-        suspectList.add("Hulk");
-        suspectList.add("Lightning McQueen");
-        suspectList.add("Rapunzel");
+            suspectList.add("Minion");
+            suspectList.add("Hulk");
+            suspectList.add("Lightning McQueen");
+            suspectList.add("Rapunzel");
 
 
             this.roomKilled = roomList.get((int)(Math.random() * roomList.size()));
@@ -67,21 +67,23 @@
             setupGuessField();
         }
 
+        //builds player cards section on the right
         public void setupUI() {
+            //vbox containing the entire panel
             VBox playerInfo = new VBox(10);
             playerInfo.setPadding(new Insets(10)); 
             playerInfo.setPrefWidth(200);
-            rootPane.getChildren().add(playerInfo);
-
             playerInfo.setLayoutX(600);
             playerInfo.setLayoutY(10);
+            rootPane.getChildren().add(playerInfo);
 
-
+            //"Cards" heading
             Label heading = new Label("Cards");
             heading.setStyle("-fx-font-weight: bold; -fx-font-size: 20px;");
             playerInfo.getChildren().add(heading);
 
-            for(Player p: players) {
+            for(Player p: players) { //builds player sub-panels
+                //Vbox with player name label
                 VBox playerBox = new VBox(5);
                 playerBox.setPadding(new Insets(5));
                 playerBox.setStyle("-fx-border-color: salmon; -fx-border-width: 3;");
@@ -90,30 +92,33 @@
                 playerName.setStyle("-fx-font-weight: bold;");
                 playerBox.getChildren().add(playerName);
 
+                //Hbox to hold the 2 card slots
                 HBox cardDisplay = new HBox(10);
                 cardDisplay.setAlignment(Pos.CENTER_LEFT);
 
-                List<Label> slots = new ArrayList<Label>();
-                for (int i = 0; i < 2; i++) { //each player cards
+                List<Label> slots = new ArrayList<>();
+                for (int i = 0; i < 2; i++) {
+                    //create gray rectangle for blank cards
                     StackPane cardPane = new StackPane();
                     cardPane.setPrefSize(120, 100);
                     cardPane.setStyle("-fx-border-color: black; -fx-background-color: #D3D3D3;");
 
+                    //empty label
                     Label cardName = new Label();
                     cardName.setWrapText(true);
-                    cardName.setTextFill(javafx.scene.paint.Color.TRANSPARENT);
                     cardName.setPadding(new Insets(0, 10, 0, 10));
                     cardPane.getChildren().add(cardName);
 
                     cardDisplay.getChildren().add(cardPane);
-                    slots.add(cardName);
+                    slots.add(cardName); //store the card labels for later revealing
                 }
 
-                playerCardLabels.put(p, slots);
+                playerCardLabels.put(p, slots); //map player to their 2 card slots
 
                 playerBox.getChildren().add(cardDisplay);
                 playerInfo.getChildren().add(playerBox);
 
+                //reveals the user's cards at the start of the game
                 if (p == players.getFirst()) { 
                     for (String userCard: p.getCards()) {
                         revealCard(p, userCard);
@@ -188,8 +193,6 @@
                 return;
             }
 
-            infoLabel.setText("You guessed: " + guess + " in " + currentRoom.getName());
-
             boolean disproved = false;
             for (int i = 1; i < players.size(); i++) {
                 Player nextPlayer = players.get((currentPlayerIndex + i) % players.size());
@@ -205,7 +208,6 @@
                 if (disproved) {
                     break;
                 }
-
             }
 
 
@@ -225,9 +227,10 @@
         }
 
         private void revealCard(Player revealer, String cardName) {
-            List<Label> slots = playerCardLabels.get(revealer);
+            List<Label> slots = playerCardLabels.get(revealer); //get player's 2 labels
             for (Label lbl : slots) {
-                if (lbl.getText().isEmpty()) {
+                if (lbl.getText().isEmpty()) { //find 1st empty label
+                    //put name on card
                     lbl.setText(cardName);
                     lbl.setTextFill(javafx.scene.paint.Color.BLACK);
                     break;

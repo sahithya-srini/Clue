@@ -20,13 +20,11 @@ public class Main extends Application {
 
         Board board = new Board();
 
-        HBox rootPane = new HBox(20); // or 10??
-//        rootPane.setPadding(new Insets(10)); // needed??
+        HBox rootPane = new HBox(20);
 
         VBox gameParts = new VBox(10);
         gameParts.getChildren().addAll(infoLabel, board.getGridPane(), guessField);
         gameParts.setPrefSize(Board.BOARD_SIZE * Board.CELL_SIZE + 100, Board.BOARD_SIZE * Board.CELL_SIZE + 150);
-        //change sizing??
         rootPane.getChildren().add(gameParts);
 
         gameController = new GameController(board, infoLabel, guessField, rootPane);
