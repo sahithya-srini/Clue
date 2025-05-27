@@ -78,11 +78,11 @@
             rootPane.getChildren().add(playerInfo);
 
             //"Cards" heading
-            Label heading = new Label("Cards");
-            heading.setStyle("-fx-font-weight: bold; -fx-font-size: 20px;");
-            playerInfo.getChildren().add(heading);
+            Label headingLabel = new Label("Cards");
+            headingLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 20px;");
+            playerInfo.getChildren().add(headingLabel);
 
-            for(Player p: players) { //builds player sub-panels
+            for(Player p: players) { //builds player sub-panels, 1 for each player
                 //Vbox with player name label
                 VBox playerBox = new VBox(5);
                 playerBox.setPadding(new Insets(5));
@@ -103,7 +103,7 @@
                     cardPane.setPrefSize(120, 100);
                     cardPane.setStyle("-fx-border-color: black; -fx-background-color: #D3D3D3;");
 
-                    //empty label
+                    //empty text label
                     Label cardName = new Label();
                     cardName.setWrapText(true);
                     cardName.setPadding(new Insets(0, 10, 0, 10));
