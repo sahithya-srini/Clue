@@ -103,7 +103,7 @@
                     cardPane.setPrefSize(120, 100);
                     cardPane.setStyle("-fx-border-color: black; -fx-background-color: #D3D3D3;");
 
-                    //empty text label
+                    //blank text label (face-down card)
                     Label cardName = new Label();
                     cardName.setWrapText(true);
                     cardName.setPadding(new Insets(0, 10, 0, 10));
@@ -114,12 +114,13 @@
                 }
 
                 playerCardLabels.put(p, slots); //map player to their 2 card slots
+                //store the 2 cardName Labels so revealCard function can look them up by Player
 
                 playerBox.getChildren().add(cardDisplay);
                 playerInfo.getChildren().add(playerBox);
 
                 //reveals the user's cards at the start of the game
-                if (p == players.getFirst()) { 
+                if (p == players.get(0)) {
                     for (String userCard: p.getCards()) {
                         revealCard(p, userCard);
                     }
@@ -227,7 +228,7 @@
         }
 
         private void revealCard(Player revealer, String cardName) {
-            List<Label> slots = playerCardLabels.get(revealer); //get player's 2 labels
+            List<Label> slots = playerCardLabels.get(revealer); //get player's 2 labels created earlier in setupUI() for each card
             for (Label lbl : slots) {
                 if (lbl.getText().isEmpty()) { //find 1st empty label
                     //put name on card
