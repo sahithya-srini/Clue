@@ -26,5 +26,5 @@ We settled on using separate classes:
 I'm unable to run the game currently, but below is an image of an older version of the game. This image shows only the board, not the section on the right that displays each player's cards and the place for the user to enter their guesses.
 
  <p align="left">
-      <img width="326" height="224" alt="image" src="https://github.com/user-attachments/assets/10d9b095-833d-4425-b394-e316a0ab315b" />
+      <img width="326" height="264" alt="image" src="https://github.com/user-attachments/assets/10d9b095-833d-4425-b394-e316a0ab315b" />
     </p>
