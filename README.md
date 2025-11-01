@@ -1,4 +1,4 @@
-#Clue Game
+# Clue Game
 
 In the board game Clue, the goal is to figure out who committed the crime, with what weapon, and in which room. There are six suspects, six weapons, and nine rooms. At the start, one card from each category is hidden in an envelope (the solution), and the rest are dealt to players. Players move around the board, entering rooms to make suggestions (e.g., “I think it was Professor Plum with the candlestick in the library”). Other players must secretly show a card if they have one of the suggested cards, helping eliminate possibilities. When someone is confident, they can make an accusation; if correct, they win, but if wrong, they’re out of the game.
 
@@ -7,7 +7,7 @@ We like the board game Clue, so we decided to create our own version with a movi
 (gameplay rules like the actual board game)
 During the game, the human player will make a guess for the killer, and the room they’re in counts as a guess for the location of the murder like in the actual Clue game. If the human player guesses the killer and/or the room incorrectly, the code will find the Players that own those cards and reveal one of them to the human player on the screen. Otherwise, the human player guessed the correct answer and won the game.
 
-##Process
+## Process
 We first spent a lot of time discussing and designing our plan together for the game. Our goals when figuring out the logic were to simplify the Clue board game and also add our own ideas. We identified the core components of the game, drew diagrams of the digital game board, and wrote pseudocode.
 We settled on using separate classes:
 - Board.java for the game board and handled player movement (graphics using JavaFX)
@@ -24,5 +24,7 @@ We settled on using separate classes:
 - adding movie poster images for rooms
 
 I'm unable to run the game currently, but below is an image of an older version of the game. This image shows only the board, not the section on the right that displays each player's cards and the place for the user to enter their guesses.
-![png_image_720](https://github.com/user-attachments/assets/10d9b095-833d-4425-b394-e316a0ab315b)
 
+ <p align="left">
+      <img width="326" height="224" alt="image" src="https://github.com/user-attachments/assets/10d9b095-833d-4425-b394-e316a0ab315b" />
+    </p>
