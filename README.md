@@ -4,7 +4,7 @@ In the board game Clue, the goal is to figure out who committed the crime, with 
 
 We like the board game Clue, so we decided to create our own version with a movie theme. The game involves 4 players who are movie characters, and 6 rooms represented by movies like Tangled and Despicable Me. Players are represented by the circles on the grid. The yellow circle is the Minion and is the human player. On the right side, we displayed the cards each player has. Since the human player, the minion, knows which cards they have, only their cards are displayed at the start of the game. Each other player has two grey rectangles to represent their cards, which are not visible to the human player at the start of the game. To simplify Clue, we only have room and suspect cards; we don't have weapon cards. So the players are only guessing the killer and the room where the murder occurred. 
 
-(gameplay rules like the actual board game)
+[gameplay rules like the actual board game]
 During the game, the human player will make a guess for the killer, and the room they’re in counts as a guess for the location of the murder like in the actual Clue game. If the human player guesses the killer and/or the room incorrectly, the code will find the Players that own those cards and reveal one of them to the human player on the screen. Otherwise, the human player guessed the correct answer and won the game.
 
 ## Process
