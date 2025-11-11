@@ -28,7 +28,9 @@ We settled on using separate classes:
 This project is built using JavaFX, so JavaFX runtime (https://openjfx.io/openjfx-docs/) will be needed to run this project.
 
 Download the Clue.jar file from the release and run the following command.
-java --module-path C:\Apps\javaproject\javafx-sdk-24.0.1\lib --add-modules javafx.controls,javafx.fxml -jar Clue.jar
+```bash
+   java --module-path C:\Apps\javaproject\javafx-sdk-24.0.1\lib --add-modules javafx.controls,javafx.fxml -jar Clue.jar
+   ```
 
 Below is an image of the game board. The section on the right displays each player's cards and below the board is a place for the user to enter their guesses.
  <p align="left">
