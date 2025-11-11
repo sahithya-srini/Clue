@@ -23,8 +23,19 @@ We settled on using separate classes:
 - creating appealing UI/UX using JavaFX (& learning how to use JavaFX)
 - adding movie poster images for rooms
 
-I'm unable to run the game currently, but below is an image of an older version of the game. This image shows only the board, not the section on the right that displays each player's cards and the place for the user to enter their guesses.
 
+## How to run
+This project is built using JavaFX, so JavaFX runtime (https://openjfx.io/openjfx-docs/) will be needed to run this project.
+
+Download the Clue.jar file from the release and run the following command.
+java --module-path C:\Apps\javaproject\javafx-sdk-24.0.1\lib --add-modules javafx.controls,javafx.fxml -jar Clue.jar
+
+Below is an image of the game board. The section on the right displays each player's cards and below the board is a place for the user to enter their guesses.
  <p align="left">
       <img width="326" height="294" alt="image" src="https://github.com/user-attachments/assets/10d9b095-833d-4425-b394-e316a0ab315b" />
     </p>
+
+ <p align="left">
+      <img width="380" height="307" alt="image" src="https://github.com/user-attachments/assets/98ee6ad0-7cc4-4eed-bfc3-8b99fa8cdd88" />
+    </p>
+
